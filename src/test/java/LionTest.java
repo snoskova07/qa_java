@@ -1,31 +1,36 @@
 import com.example.Feline;
 import com.example.Lion;
-import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertThrows;
 
-@RunWith(MockitoJUnitRunner.class)
+import java.util.Arrays;
+import java.util.List;
+
 public class LionTest {
 
-    @Mock
-    Lion lion;
-//  Я не понимаю как это делать. Вообще. Тотально.
-
     @Test
-    public void test() {
+    public void testGetKittens() throws Exception {
         Feline feline = new Feline();
-        Lion lion = new Lion(feline);
-        lion.doesHaveMane();
-        Mockito.verify(lion, Mockito.times(1)).doesHaveMane();
-    //     assertEquals(actual, 1);
+        Lion lion = new Lion("Самец", feline);
+        assertEquals(lion.getKittens(), 1);
     }
 
+    @Test
+    public void testGetFood() throws Exception {
+        Feline feline = new Feline();
+        Lion lion = new Lion("Самец", feline);
+        List<String> expected = Arrays.asList("Животные", "Птицы", "Рыба");
+        assertEquals(expected, lion.getFood());
+    }
+
+    @Test
+    public void testLion() {
+        Feline feline = new Feline();
+        Exception exception = assertThrows(Exception.class, () -> {
+            new Lion("неСамец", feline);
+        });
+        assertEquals("Используйте допустимые значения пола животного - Самец или Самка", exception.getMessage());
+    }
 }

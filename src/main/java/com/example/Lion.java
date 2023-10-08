@@ -5,22 +5,18 @@ import java.util.List;
 public class Lion {
 
     boolean hasMane;
-    Feline feline;
-    // Почему 2 метода Lion? один конструктор, а другой нет.
-    public Lion(String sex) throws Exception {
+    private Feline feline;
+
+    public Lion(String sex, Feline feline) throws Exception {
+        this.feline = feline;
         if ("Самец".equals(sex)) {
             hasMane = true;
         } else if ("Самка".equals(sex)) {
             hasMane = false;
         } else {
-            throw new Exception("Используйте допустимые значения пола животного - самец или самка");
+            throw new Exception("Используйте допустимые значения пола животного - Самец или Самка");
         }
     }
- //   Feline feline = new Feline();
-    // Не понимаю тему с инъекциями. Вообще.
-    public Lion(Feline feline) {
-     this.feline = feline;
- }
 
     public int getKittens() {
         return feline.getKittens();
